@@ -1,6 +1,7 @@
 "use client"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Main from '@/components/Home'
 
 export default function Home() {
   const [data, setData] = useState("unknown")
@@ -10,7 +11,7 @@ export default function Home() {
   
   return (
    <main>
-    {data}
+    <Main/>
    </main>
   );
 }

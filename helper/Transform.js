@@ -1,0 +1,1 @@
+export const shorten = (text, length) => text.length <= length ? text : text.substr(0, length) + "..."
