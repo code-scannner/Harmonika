@@ -177,8 +177,8 @@ def get_meta_data(song_table):
 
 # Retrieve relavant information from the song table
 def _get_songs_details_from_table(albumname, song_table):
-    print(albumname)
     song_name = get_song_name(song_table)
+    print(song_name)
     download_link = get_download_link(song_table)
     meta_data = get_meta_data(song_table)
     return [
@@ -268,6 +268,5 @@ if __name__ == '__main__':
     else:
         output_file = DEFAULT_FILE_NAME
     
-    for i in range(2000, 2025):
-        main(year, output_dir, output_file)
+    main(year, output_dir, output_file)
 
