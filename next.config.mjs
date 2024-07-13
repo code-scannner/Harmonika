@@ -3,7 +3,12 @@
 const API_URL = process.env.API_URL
 
 const nextConfig = {
-  async rewrites() {
+	output: "export",
+	trailingSlash: true,
+	images: {
+		unoptimized: true
+	},
+	async rewrites() {
 		return [
 			{
 				source: '/api/:path*',

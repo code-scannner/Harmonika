@@ -1,12 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 import numpy as np, pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="./out/", static_url_path='')
 
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}},)
 
 songs = pd.read_pickle('./learning/songs.pkl')
 similarity = np.load('./learning/similarity.npy')
@@ -52,6 +52,9 @@ def search(query):
         print(e)
         return []
 
+@app.route("/")
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(port=8080, debug = True)
