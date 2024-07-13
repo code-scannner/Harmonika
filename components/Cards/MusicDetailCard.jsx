@@ -16,12 +16,11 @@ export default function MusicDetailCard({song}) {
                                 </g>
                             </g>
                         </svg>
-
                     </a>
                 </div>
             </div>
             <div className="flex grow-[1] justify-between flex-col my-2 text-sm relative">
-                <h3 className="text-white leading-tight mb-1 font-semibold">
+                <h3 className="text-white leading-tight mb-1 font-semibold" title={song.title}>
                     <span>{shorten(song.title, 16)}</span>
                 </h3>
                 <p className="text-gray-400 text-xs ml-auto">{song.year}</p>

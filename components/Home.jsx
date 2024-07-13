@@ -11,6 +11,7 @@ var backgrounds = [
 
 export default function Home() {
     const [songs, setSongs] = useState([])
+    const [currSong, setCurrSong] = useState(null)
     useEffect(() => {
       axios('/api/search').then(res=>setSongs(res.data))
     }, [])
