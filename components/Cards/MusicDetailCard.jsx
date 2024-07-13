@@ -1,14 +1,13 @@
 import { shorten } from '@/helper/Transform'
 import React from 'react'
 
-export default function MusicDetailCard() {
+export default function MusicDetailCard({song}) {
     return (
-        <div className="p-3 md:w-44 border border-solid border-zinc-900 hover:border-zinc-800 transition-all duration-300 overflow-hidden rounded-md shadow-lg hover:shadow-xl outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
-           
+        <div className="flex flex-col p-3 md:w-44 border border-solid border-zinc-900 hover:border-zinc-800 transition-all duration-300 overflow-hidden rounded-md shadow-lg hover:shadow-xl outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
             <div className="group relative">
-                <img className="w-full block rounded" src="https://upload.wikimedia.org/wikipedia/en/f/f1/Tycho_-_Epoch.jpg" alt="image bg" />
+                <img className="w-full block rounded" src={song.poster} alt={song.title} />
                 <div className="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 transition justify-evenly">
-                    <button className="hover:scale-110 text-white opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                    <a href={song.download_link} target='_blank' className="hover:scale-110 text-white opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width={40} height={40} xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" viewBox="0 0 49 49" xmlSpace="preserve">
                             <g>
                                 <g>
@@ -18,14 +17,14 @@ export default function MusicDetailCard() {
                             </g>
                         </svg>
 
-                    </button>
+                    </a>
                 </div>
             </div>
-            <div className="my-2 text-sm relative">
+            <div className="flex grow-[1] justify-between flex-col my-2 text-sm relative">
                 <h3 className="text-white leading-tight mb-1 font-semibold">
-                    <span>{shorten("Saare Jahan se Achcha Hindositan", 50)}</span>
+                    <span>{shorten(song.title, 16)}</span>
                 </h3>
-                <p className="text-gray-400 text-xs">2014</p>
+                <p className="text-gray-400 text-xs ml-auto">{song.year}</p>
             </div>
         </div>
     )
