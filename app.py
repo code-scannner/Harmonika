@@ -20,7 +20,9 @@ top_songs = songs.sort_values(by = "year").iloc[-50:].index.tolist()
 def get_songs(indexes):
     result = []
     for index in indexes:
-        result.append(songs.iloc[index].to_dict())
+        song = songs.iloc[index].to_dict()
+        song['index'] = index
+        result.append(song)
     return result
 
 @app.route("/api/recommend/<song_id>")

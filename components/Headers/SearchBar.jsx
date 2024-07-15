@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import axios from 'axios';
 import LoadingBar from 'react-top-loading-bar';
 
-export default function SearchBar({ setSongs }) {
+export default function SearchBar({ setSongs, setLabelText }) {
 
     const [search, setSearch] = useState("")
     const reloadSongs = (e) => {
@@ -10,6 +10,7 @@ export default function SearchBar({ setSongs }) {
         e.preventDefault();
         axios(`/api/search/${search}`).then(res => {
             setSongs(res.data)
+            setLabelText(`Search Results for : ${search}`)
             ref.current.complete()
         })
     }

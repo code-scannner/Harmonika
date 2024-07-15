@@ -1,9 +1,21 @@
 "use client"
 import { createYoutubePoster, shorten } from '@/helper/Transform'
-import React from 'react'
+import React, { useRef } from 'react'
+import axios from 'axios'
 import { motion } from 'framer-motion'
 import CustomImage from '../Custom/CustomImage'
-export default function MusicDetailCard({ song, delay }) {
+import LoadingBar from 'react-top-loading-bar'
+export default function MusicDetailCard({ song, delay, setSongs , setLabelText}) {
+    const reloadSongs = () => {
+        window.scrollTo(0, 0)
+        ref.current.continuousStart();
+        axios(`/api/recommend/${song.index}`).then(res => {
+            setSongs(res.data)
+            setLabelText(`Similar to : ${song.title}`)
+            ref.current.complete()
+        })
+    }
+    const ref = useRef(null)
     return (
         <motion.div
             key={song.download_link}
@@ -12,13 +24,14 @@ export default function MusicDetailCard({ song, delay }) {
             animate={{ opacity: 1, translateY: '0' }}
             className='shadow-lg relative hover:shadow-xl min-h-full'>
 
+            <LoadingBar className='absolute' color='#cfcfcf' ref={ref} />
             <div className='absolute -z-10 inset-0 transform scale-[1.01] rounded-md bg-gradient-to-br from-zinc-500 via-zinc-900/80 to-zinc-500 transition-all'></div>
-            <div className="flex flex-col p-2.5 h-full rounded-md overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
+            <div className="flex flex-col p-2.5 h-full rounded-md overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95 transition-colors">
                 <div className="group relative">
                     <CustomImage className="block rounded h-28 w-18"
                         src={createYoutubePoster(song.download_link)}
                         alt={song.title}
-                        fallbackSrc="musicnote.png"
+                        fallbackSrc="https://img.youtube.com/d.jpg"
                     />
 
                     <div className="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 transition justify-evenly">
@@ -35,14 +48,24 @@ export default function MusicDetailCard({ song, delay }) {
                     </div>
                 </div>
 
-                <div className="flex grow-[1] justify-between flex-col my-2 text-sm relative">
-                    <h3 className="text-white leading-tight mb-1 font-semibold" title={song.title}>
-                        <span>{shorten(song.title, 16)}</span>
-                    </h3>
-                    <div className='text-xs flex justify-between'>
-                    {/* <button type="button" className="px-1 py-1 text-[0.6rem] font-medium text-center text-white rounded-md bg-blue-600 hover:bg-blue-700">
-                        recommend</button> */}
+                <div className="flex items-center grow-[1] mb-0 justify-between my-2 text-sm relative">
+                    <div className='text-xs flex flex-col gap-y-1'>
+                        <h3 className="text-white leading-tight font-semibold" title={song.title}>
+                            <span>{shorten(song.title, 16)}</span>
+                        </h3>
                         <p className="text-gray-400">{song.year}</p>
+                    </div>
+                    <div>
+                        <button onClick={reloadSongs} >
+
+                            <svg className='w-6 cursor-pointer fill-zinc-300' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" viewBox="0 0 442.04 442.04" xmlSpace="preserve">
+                                <g><g><path d="M221.02,341.304c-49.708,0-103.206-19.44-154.71-56.22C27.808,257.59,4.044,230.351,3.051,229.203    c-4.068-4.697-4.068-11.669,0-16.367c0.993-1.146,24.756-28.387,63.259-55.881c51.505-36.777,105.003-56.219,154.71-56.219    c49.708,0,103.207,19.441,154.71,56.219c38.502,27.494,62.266,54.734,63.259,55.881c4.068,4.697,4.068,11.669,0,16.367    c-0.993,1.146-24.756,28.387-63.259,55.881C324.227,321.863,270.729,341.304,221.02,341.304z M29.638,221.021    c9.61,9.799,27.747,27.03,51.694,44.071c32.83,23.361,83.714,51.212,139.688,51.212s106.859-27.851,139.688-51.212    c23.944-17.038,42.082-34.271,51.694-44.071c-9.609-9.799-27.747-27.03-51.694-44.071    c-32.829-23.362-83.714-51.212-139.688-51.212s-106.858,27.85-139.688,51.212C57.388,193.988,39.25,211.219,29.638,221.021z" />
+                                </g> <g> <path d="M221.02,298.521c-42.734,0-77.5-34.767-77.5-77.5c0-42.733,34.766-77.5,77.5-77.5c18.794,0,36.924,6.814,51.048,19.188    c5.193,4.549,5.715,12.446,1.166,17.639c-4.549,5.193-12.447,5.714-17.639,1.166c-9.564-8.379-21.844-12.993-34.576-12.993    c-28.949,0-52.5,23.552-52.5,52.5s23.551,52.5,52.5,52.5c28.95,0,52.5-23.552,52.5-52.5c0-6.903,5.597-12.5,12.5-12.5    s12.5,5.597,12.5,12.5C298.521,263.754,263.754,298.521,221.02,298.521z" />
+                                    </g> <g> <path d="M221.02,246.021c-13.785,0-25-11.215-25-25s11.215-25,25-25c13.786,0,25,11.215,25,25S234.806,246.021,221.02,246.021z" />
+                                    </g> </g>
+                            </svg>
+                        </button>
+
                     </div>
                 </div>
 
