@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import axios from 'axios';
+import LoadingBar from 'react-top-loading-bar';
 
 export default function SearchBar({ setSongs }) {
 
     const [search, setSearch] = useState("")
     const reloadSongs = (e) => {
+        ref.current.continuousStart();
         e.preventDefault();
-        axios(`/api/search/${search}`).then(res => setSongs(res.data))
+        axios(`/api/search/${search}`).then(res => {
+            setSongs(res.data)
+            ref.current.complete()
+        })
     }
+    const ref = useRef(null)
     return (
         <form className="flex items-center max-w-lg mx-auto" onSubmit={reloadSongs}>
+            <LoadingBar color='#cfcfcf' ref={ref} />
             <label htmlFor="voice-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
