@@ -1,13 +1,26 @@
+"use client"
 import { shorten } from '@/helper/Transform'
 import React from 'react'
-export default function MusicDetailCard({ song }) {
+import { motion } from 'framer-motion'
+import CustomImage from '../Custom/CustomImage'
+export default function MusicDetailCard({ song, delay }) {
     return (
-        <div className='shadow-lg relative hover:shadow-xl'>
-            
-            <div className='absolute -z-10 inset-0 transform scale-[1.01] rounded-md bg-gradient-to-br from-zinc-200 via-zinc-900/80 to-zinc-200 transition-all'></div>
-            <div className="flex flex-col p-3 rounded-md md:w-44 overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
+        <motion.div
+            key={song.download_link}
+            transition={{ duration: 0.4, delay: 0.1 * delay }}
+            initial={{ opacity: 0, translateY: '12px' }}
+            animate={{ opacity: 1, translateY: '0' }}
+            className='shadow-lg relative hover:shadow-xl min-h-full'>
+
+            <div className='absolute -z-10 inset-0 transform scale-[1.01] rounded-md bg-gradient-to-br from-zinc-500 via-zinc-900/80 to-zinc-500 transition-all'></div>
+            <div className="flex flex-col p-2.5 h-full rounded-md md:w-40 overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
                 <div className="group relative">
-                    <img className="w-full block rounded" src={song.poster} alt={song.title} />
+                    <CustomImage className="w-full block rounded"
+                        src={song.poster}
+                        alt={song.title}
+                        fallbackSrc="musicnote.png"
+                    />
+
                     <div className="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 transition justify-evenly">
                         <a href={song.download_link} target='_blank' className="relative top-2 group-hover:top-0 hover:scale-110 text-white opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width={40} height={40} xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" viewBox="0 0 49 49" xmlSpace="preserve">
@@ -28,6 +41,6 @@ export default function MusicDetailCard({ song }) {
                     <p className="text-gray-400 text-xs ml-auto">{song.year}</p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

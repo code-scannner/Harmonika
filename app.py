@@ -10,9 +10,10 @@ CORS(app, resources={r"/*": {"origins": "*"}},)
 
 songs = pd.read_pickle('./learning/songs.pkl')
 similarity = np.load('./learning/similarity.npy')
+search_words = np.load('./learning/search_similarity.npy', allow_pickle= True)
 
 vectorizer = TfidfVectorizer()
-all_transform = vectorizer.fit_transform(songs['title'].tolist())
+all_transform = vectorizer.fit_transform(search_words.tolist())
 
 top_songs = songs.sort_values(by = "year").iloc[-50:].index.tolist()
 

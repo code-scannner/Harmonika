@@ -26,7 +26,7 @@ export default function SearchBar({ setSongs }) {
                         </g>
                     </svg>
                 </div>
-                <input type="text" value={search} onChange={e => setSearch(e.target.value)} id="voice-search" className="outline-none border text-sm rounded-lg block w-full ps-10 p-2.5 focus:bg-gray-800/40 transition-colors bg-gray-800/70 border-gray-600 placeholder-gray-400 text-white" placeholder="Search Your Music..." required />
+                <input type="text" value={search} onChange={e => setSearch(e.target.value)} id="voice-search" className="outline-none border text-sm rounded-lg block w-full ps-10 p-2.5 focus:bg-gray-800/40 transition-colors bg-gray-800/70 border-gray-600 placeholder-gray-400 text-white" placeholder="Search Your Music..." required minLength={3} maxLength={20} />
                 <button type="submit" className="absolute inset-y-0 end-0 flex items-center pe-3">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
