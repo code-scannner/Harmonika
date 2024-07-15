@@ -1,5 +1,5 @@
 "use client"
-import { shorten } from '@/helper/Transform'
+import { createYoutubePoster, shorten } from '@/helper/Transform'
 import React from 'react'
 import { motion } from 'framer-motion'
 import CustomImage from '../Custom/CustomImage'
@@ -13,10 +13,10 @@ export default function MusicDetailCard({ song, delay }) {
             className='shadow-lg relative hover:shadow-xl min-h-full'>
 
             <div className='absolute -z-10 inset-0 transform scale-[1.01] rounded-md bg-gradient-to-br from-zinc-500 via-zinc-900/80 to-zinc-500 transition-all'></div>
-            <div className="flex flex-col p-2.5 h-full rounded-md md:w-40 overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
+            <div className="flex flex-col p-2.5 h-full rounded-md overflow-hidden outline-none bg-zinc-900/80 hover:bg-zinc-900/95">
                 <div className="group relative">
-                    <CustomImage className="w-full block rounded"
-                        src={song.poster}
+                    <CustomImage className="block rounded h-28 w-18"
+                        src={createYoutubePoster(song.download_link)}
                         alt={song.title}
                         fallbackSrc="musicnote.png"
                     />
@@ -34,12 +34,18 @@ export default function MusicDetailCard({ song, delay }) {
                         </a>
                     </div>
                 </div>
+
                 <div className="flex grow-[1] justify-between flex-col my-2 text-sm relative">
                     <h3 className="text-white leading-tight mb-1 font-semibold" title={song.title}>
                         <span>{shorten(song.title, 16)}</span>
                     </h3>
-                    <p className="text-gray-400 text-xs ml-auto">{song.year}</p>
+                    <div className='text-xs flex justify-between'>
+                    {/* <button type="button" className="px-1 py-1 text-[0.6rem] font-medium text-center text-white rounded-md bg-blue-600 hover:bg-blue-700">
+                        recommend</button> */}
+                        <p className="text-gray-400">{song.year}</p>
+                    </div>
                 </div>
+
             </div>
         </motion.div>
     )
