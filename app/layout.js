@@ -1,6 +1,6 @@
 import "./globals.css";
 export const metadata = {
-  title: "Harmonika | By Shreyansh Gupta",
+  title: "Harmonika",
   description: "A Music Recommendation Application By Shreyansh Gupta",
 };
 
