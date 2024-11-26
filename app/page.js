@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import Main from '@/components/Home'
-import Label from "@/components/Footers/Label";
+// import Label from "@/components/Footers/Label";
 var backgrounds = [
   "https://w0.peakpx.com/wallpaper/476/955/HD-wallpaper-colorful-lines-abstract-art-dark-backgrounds-creative-lines-background-with-lines.jpg"
 ]
@@ -14,7 +14,7 @@ export default function Home() {
         style={{ backgroundImage: `url('${backgrounds[0]}')` }}
       ></div>
       <Main />
-      <Label />
+      {/* <Label /> */}
     </main>
   );
 }
