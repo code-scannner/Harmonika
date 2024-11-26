@@ -14,7 +14,7 @@ export default function Home() {
         style={{ backgroundImage: `url('${backgrounds[0]}')` }}
       ></div>
       <Main />
-      {/* <Label /> */}
+      <Label />
     </main>
   );
 }
